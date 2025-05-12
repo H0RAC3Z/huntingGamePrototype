@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://2wi65b401mwo"]
+
+[ext_resource type="Script" uid="uid://dtt0vuuxvjcte" path="res://scripts/projectile.gd" id="1_dprbf"]
+[ext_resource type="ArrayMesh" uid="uid://gvhqu0ld4ape" path="res://assets/Low Poly Fantasy Weapon Pack/Arrow.obj" id="2_vihyi"]
+
+[node name="Projectile" type="RayCast3D"]
+top_level = true
+collision_mask = 3
+script = ExtResource("1_dprbf")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -4.37114e-08, 1, -1, 1.91069e-15, -4.37114e-08, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("2_vihyi")
+skeleton = NodePath("")
+
+[connection signal="timeout" from="Timer" to="." method="cleanUp"]

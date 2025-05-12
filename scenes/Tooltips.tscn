@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://qwhfmpo2khsd"]
+
+[ext_resource type="Script" uid="uid://c2x3yctkc0ro1" path="res://scripts/tooltips.gd" id="1_s4tfd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s4tfd"]
+bg_color = Color(0.564706, 0.564706, 0.862745, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.476941, 0.599433, 0.786511, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Tooltips" type="Control" node_paths=PackedStringArray("displayName")]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 86.0
+offset_bottom = 86.0
+script = ExtResource("1_s4tfd")
+displayName = NodePath("Name")
+
+[node name="Name" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_right = 5.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_s4tfd")

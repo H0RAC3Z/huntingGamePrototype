@@ -1,0 +1,193 @@
+[gd_scene load_steps=22 format=3 uid="uid://hc8418i7vlq1"]
+
+[ext_resource type="Script" uid="uid://bruhv6igxyr6m" path="res://scripts/player.gd" id="1_p0vlq"]
+[ext_resource type="PackedScene" uid="uid://bkgjmwwsiv35y" path="res://scenes/ProjectileLauncher.tscn" id="2_v6fml"]
+[ext_resource type="Script" uid="uid://6n7ngtxhsecy" path="res://scripts/reticle.gd" id="3_3li8b"]
+[ext_resource type="Script" uid="uid://qf06kciljg1a" path="res://scripts/Interaction/player_interaction_handler.gd" id="4_qu4a1"]
+[ext_resource type="Script" uid="uid://5hvfoq03pm66" path="res://scripts/Inventory/item_data.gd" id="5_70d11"]
+[ext_resource type="PackedScene" uid="uid://b45a1l6xng6wx" path="res://scripts/Inventory/Prefabs/TestCube.tscn" id="6_70d11"]
+[ext_resource type="Texture2D" uid="uid://dqfgn63k1ifp" path="res://assets/cub.png" id="6_khinc"]
+[ext_resource type="ArrayMesh" uid="uid://bukwh15g1s7o5" path="res://assets/dist/obj_mtl/tree-branched.obj" id="7_bruh7"]
+[ext_resource type="Script" uid="uid://dsm0al8jjv1jr" path="res://scripts/Inventory/inventory_handler.gd" id="7_cw2d6"]
+[ext_resource type="PackedScene" uid="uid://bu6mi425dew0x" path="res://scenes/test_circle.tscn" id="10_d3wef"]
+[ext_resource type="PackedScene" uid="uid://dp1eke73d2v2h" path="res://scenes/testTree.tscn" id="11_o4126"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
+
+[sub_resource type="Resource" id="Resource_cw2d6"]
+script = ExtResource("5_70d11")
+ItemName = "Test Cube"
+Icon = ExtResource("6_khinc")
+ItemModelPrefab = ExtResource("6_70d11")
+OptimalEquipPlacement = Vector3(0.558, -0.778, -1.115)
+OptimalTTSize = Vector2(50, 10)
+metadata/_custom_type_script = "uid://5hvfoq03pm66"
+
+[sub_resource type="Resource" id="Resource_o4126"]
+script = ExtResource("5_70d11")
+ItemName = "Test Cricle"
+ItemModelPrefab = ExtResource("10_d3wef")
+OptimalEquipPlacement = Vector3(0, 0, 0)
+OptimalTTSize = Vector2(0, 0)
+metadata/_custom_type_script = "uid://5hvfoq03pm66"
+
+[sub_resource type="MeshTexture" id="MeshTexture_o4126"]
+mesh = ExtResource("7_bruh7")
+
+[sub_resource type="Resource" id="Resource_lkdrv"]
+script = ExtResource("5_70d11")
+ItemName = "Testtree"
+Icon = SubResource("MeshTexture_o4126")
+ItemModelPrefab = ExtResource("11_o4126")
+OptimalEquipPlacement = Vector3(0, 0, 0)
+OptimalTTSize = Vector2(0, 0)
+metadata/_custom_type_script = "uid://5hvfoq03pm66"
+
+[sub_resource type="Resource" id="Resource_d3wef"]
+script = ExtResource("5_70d11")
+ItemName = "Bow"
+ItemModelPrefab = ExtResource("2_v6fml")
+OptimalEquipPlacement = Vector3(0.337, 0, -0.478)
+OptimalTTSize = Vector2(0, 0)
+metadata/_custom_type_script = "uid://5hvfoq03pm66"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_khinc"]
+radius = 2.0
+
+[sub_resource type="Theme" id="Theme_70d11"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cw2d6"]
+bg_color = Color(0.260786, 0.35498, 0.472852, 0.439216)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.742969, 0.802969, 0.916416, 0.439216)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d3wef"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1_p0vlq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.998542, 0, 0, 0, 0.998542, 0, 0, 0, 0.998542, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_u8vuu")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.470362, 0)
+current = true
+fov = 90.0
+
+[node name="Crosshair" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_3li8b")
+
+[node name="Top" type="Line2D" parent="Crosshair/Reticle"]
+points = PackedVector2Array(0, -5, 0, -15)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="Crosshair/Reticle"]
+points = PackedVector2Array(5, 0, 15, 0)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="Crosshair/Reticle"]
+points = PackedVector2Array(0, 5, 0, 15)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="Crosshair/Reticle"]
+points = PackedVector2Array(-5, 0, -15, 0)
+width = 2.0
+
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_qu4a1")
+ItemTypes = Array[ExtResource("5_70d11")]([SubResource("Resource_cw2d6"), SubResource("Resource_o4126"), SubResource("Resource_lkdrv"), SubResource("Resource_d3wef")])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("SphereShape3D_khinc")
+
+[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("InventoryGrid")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_cw2d6")
+CollisionMask = 1
+InventoryGrid = NodePath("Panel/MarginContainer/GridContainer")
+
+[node name="Panel" type="Panel" parent="InventoryUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.5
+offset_top = -267.0
+offset_right = 325.5
+offset_bottom = 267.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_70d11")
+theme_override_styles/panel = SubResource("StyleBoxFlat_cw2d6")
+
+[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_d3wef")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="OnItemPickedUp" from="InteractionArea" to="InventoryUI" method="PickupItem"]
+[connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnObjectEnteredArea"]
+[connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="OnObjectExitedArea"]
+[connection signal="timeout" from="Timer" to="." method="_on_hunger_timer_timeout"]
