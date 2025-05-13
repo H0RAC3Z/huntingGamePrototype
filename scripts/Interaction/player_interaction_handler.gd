@@ -28,6 +28,7 @@ func PickupNearestItem() -> void:
 		
 		if nearestItem.scene_file_path == ItemTypes[4].ItemModelPrefab.resource_path:
 			HonkShooo.emit(true)
+			counter -= 1
 			return
 		
 		if nearestItem != null:
